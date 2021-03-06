@@ -45,7 +45,7 @@ class Player(object):
     def __repr__(self):
         return f"{self.name=}, {self.dices=}, {self.category_type=}, {self.output=}"
 
-    def _get_output(self):
+    def _get_output(self) -> Output:
         c = collections.Counter(self.dices)
         if (n := len(c.keys())) == 1:
             return Output(self.dices[0], 0)
