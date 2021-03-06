@@ -86,7 +86,7 @@ class Sibala(object):
 
         return p1_obj, p2_obj
 
-    def get_winner(self, p1: Player, p2: Player) -> tuple[bool, Player, int]:
+    def get_winner(self, p1: Player, p2: Player) -> tuple[Player, int]:
         winner = None
         output = None
         if p1.category_type != p2.category_type:
