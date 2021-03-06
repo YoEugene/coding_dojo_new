@@ -19,12 +19,12 @@ class Player(object):
         self.name = name
         self.dices = dices
         self.category_type = self._get_category(self.dices)
-        self.output = self._get_score()
+        self.output = self._get_output()
 
     def __repr__(self):
         return f"{self.name=}, {self.dices=}, {self.category_type=}"
 
-    def _get_score(self):
+    def _get_output(self):
         return 0
 
     def _get_category(self, dices: list[int]) -> DiceCategory:
@@ -60,7 +60,14 @@ class Sibala(object):
     def get_sibala(input_str: str):
         p1_obj, p2_obj = Sibala._parse(input_str)
         print(p1_obj, p2_obj)
-        # winner =
-        if p1_obj > p2_obj:
-            return f"{p1_obj.name} wins. {p1_obj.category_type}: '{p1_obj.output}'"
-        return
+
+        if p1_obj != p2_obj:
+            if xxxx:
+                return f"{winner_obj.name} wins. {winner_obj.category_type}: '{winner_obj.output}'"
+            winner_obj = p1_obj if p1_obj > p2_obj else p2_obj
+            return f"{winner_obj.name} wins. {winner_obj.category_type}: '{winner_obj.output}'"
+        return "Tie."
+
+
+
+
