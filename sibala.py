@@ -9,7 +9,7 @@ class DiceCategory(IntEnum):
     ALL_THE_SAME_KIND = 2
 
 
-category_dict = {
+category_to_str_dict = {
     DiceCategory.NO_POINTS: 'no points',
     DiceCategory.NORMAL_POINT: 'normal point',
     DiceCategory.ALL_THE_SAME_KIND: 'all the same kind'
@@ -108,5 +108,5 @@ class Sibala(object):
         p1_obj, p2_obj = self._parse_player_info(input_str)
         winner, output = self.get_winner(p1_obj, p2_obj)
         if winner:
-            return f"{winner.name} wins. {category_dict[winner.category_type]}: {output}"
+            return f"{winner.name} wins. {category_to_str_dict[winner.category_type]}: {output}"
         return "Tie."
