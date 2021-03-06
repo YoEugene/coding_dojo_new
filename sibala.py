@@ -60,7 +60,7 @@ class Player(object):
                 score += k
                 max_valid_dice = max(max_valid_dice, k)
             return Output(score, max_valid_dice)
-        else:
+        else: # n= 2
             if set(c.values()) == set([1, 3]):
                 return Output(0, 0)
             # case: 6, 6, 2, 2
