@@ -49,7 +49,6 @@ class Player(object):
         elif n == 4:
             return Output(0, 0)
         elif n == 3:
-            # 6, 6, 1, 2
             res_s, res_m = 0, 0
             for k, v in c.items():
                 if v == 2:
