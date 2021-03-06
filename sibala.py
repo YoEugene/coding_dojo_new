@@ -18,8 +18,8 @@ category_dict = {
 
 @dataclass
 class Output(object):
-    score: int
-    max_valid_dice: int
+    score: int  # if 6 6 2 3 => 5, 6 6 1 4 => 5
+    max_valid_dice: int  # if 6 6 2 3 => 3, 6 6 1 4 => 4
 
     def __gt__(self, other):
         return (self.score, self.max_valid_dice) > (other.score, other.max_valid_dice)
@@ -92,7 +92,6 @@ def get_winner(p1: Player, p2: Player) -> tuple[bool, Player, int]:
     return False, None, None
 
 
-
 class Sibala(object):
     def _parse(self, input_str: str):
         p1, p2 = input_str.split('  ')
@@ -103,6 +102,7 @@ class Sibala(object):
         p2_obj = Player(p2_name, [int(num) for num in p2_dice_str.split(' ')])
 
         return p1_obj, p2_obj
+
     # entry point
     def get_sibala(self, input_str: str):
         p1_obj, p2_obj = self._parse(input_str)
