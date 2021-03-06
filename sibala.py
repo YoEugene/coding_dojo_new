@@ -92,7 +92,7 @@ class Sibala(object):
         if p1.category_type != p2.category_type:
             winner = p1 if p1.category_type > p2.category_type else p2
             output = winner.output.score
-        if p1.category_type == DiceCategory.ALL_THE_SAME_KIND:
+        elif p1.category_type == DiceCategory.ALL_THE_SAME_KIND:
             if p1.output != p2.output:
                 winner = p1 if p1.output > p2.output else p2
                 output = winner.output.score
