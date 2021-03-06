@@ -76,7 +76,7 @@ class Player(object):
 
 
 class Sibala(object):
-    def _parse(self, input_str: str):
+    def _parse_player_info(self, input_str: str):
         p1, p2 = input_str.split('  ')
         p1_name, p1_dice_str = p1.split(':')
         p2_name, p2_dice_str = p2.split(':')
@@ -105,7 +105,7 @@ class Sibala(object):
 
     # entry point
     def get_sibala(self, input_str: str):
-        p1_obj, p2_obj = self._parse(input_str)
+        p1_obj, p2_obj = self._parse_player_info(input_str)
         winner, output = self.get_winner(p1_obj, p2_obj)
         if winner:
             return f"{winner.name} wins. {category_dict[winner.category_type]}: {output}"
