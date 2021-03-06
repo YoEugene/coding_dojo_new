@@ -6,7 +6,7 @@ from sibala import Sibala
 class MyTestCase(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.sibala = Sibala
+        self.sibala = Sibala()
 
     # Input: "Amy:2 2 6 6  Lin:6 6 3 1"
     # Output: "Amy wins, normal point: '12'"
