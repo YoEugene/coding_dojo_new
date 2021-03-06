@@ -92,8 +92,8 @@ def get_winner(p1: Player, p2: Player) -> tuple[bool, Player, int]:
     return False, None, None
 
 
+
 class Sibala(object):
-    @staticmethod
     def _parse(input_str: str):
         p1, p2 = input_str.split('  ')
         p1_name, p1_dice_str = p1.split(':')
@@ -103,15 +103,10 @@ class Sibala(object):
         p2_obj = Player(p2_name, [int(num) for num in p2_dice_str.split(' ')])
 
         return p1_obj, p2_obj
-
-    @staticmethod
+    # entry point
     def get_sibala(input_str: str):
         p1_obj, p2_obj = Sibala._parse(input_str)
-        print(p1_obj, p2_obj)
-
         has_winner, winner, output = get_winner(p1_obj, p2_obj)
-
         if has_winner:
             return f"{winner.name} wins. {category_dict[winner.category_type]}: {output}"
-
         return "Tie."
