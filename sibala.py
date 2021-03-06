@@ -8,6 +8,12 @@ class DiceCategory(Enum):
     ALL_THE_SAME_KIND = 2
 
 
+category_dict = {
+    DiceCategory.NO_POINTS: 'no points',
+    DiceCategory.NORMAL_POINT: 'normal point',
+    DiceCategory.ALL_THE_SAME_KIND: 'all the same kind'
+}
+
 
 class Player(object):
     name: str
@@ -42,6 +48,8 @@ class Player(object):
         pass
 
 
+def get_winner(p1: Player, p2: Player):
+    return True, p1
 
 
 class Sibala(object):
@@ -61,12 +69,13 @@ class Sibala(object):
         p1_obj, p2_obj = Sibala._parse(input_str)
         print(p1_obj, p2_obj)
 
-        if p1_obj != p2_obj:
-            if xxxx:
-                return f"{winner_obj.name} wins. {winner_obj.category_type}: '{winner_obj.output}'"
-            winner_obj = p1_obj if p1_obj > p2_obj else p2_obj
-            return f"{winner_obj.name} wins. {winner_obj.category_type}: '{winner_obj.output}'"
+        has_winner, winner = get_winner(p1_obj, p2_obj)
+
+        if has_winner:
+            return f"{winner.name} wins. {category_dict[winner.category_type]}: {winner.output}"
+
         return "Tie."
+
 
 
 
