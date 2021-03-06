@@ -24,6 +24,9 @@ class Output(object):
     def __gt__(self, other):
         return (self.score, self.max_valid_dice) > (other.score, other.max_valid_dice)
 
+    def __eq__(self, other):
+        return (self.score, self.max_valid_dice) == (other.score, other.max_valid_dice)
+
 
 class Player(object):
     name: str
