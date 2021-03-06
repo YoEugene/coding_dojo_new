@@ -75,21 +75,7 @@ class Player(object):
         return DiceCategory.NORMAL_POINT
 
 
-def get_winner(p1: Player, p2: Player) -> tuple[bool, Player, int]:
-    if p1.category_type != p2.category_type:
-        winner = p1 if p1.category_type > p2.category_type else p2
-        return True, winner, winner.output.score
-    if p1.category_type == DiceCategory.ALL_THE_SAME_KIND:
-        if p1.output != p2.output:
-            winner = p1 if p1.output > p2.output else p2
-            return True, winner, winner.output.score
-        return False, None, None
-    elif p1.category_type == DiceCategory.NORMAL_POINT:
-        if p1.output != p2.output:
-            winner = p1 if p1.output > p2.output else p2
-            return True, winner, winner.output.score if p1.output.score != p2.output.score else winner.output.max_valid_dice
 
-    return False, None, None
 
 
 class Sibala(object):
@@ -103,10 +89,27 @@ class Sibala(object):
 
         return p1_obj, p2_obj
 
+
+    def get_winner(self, p1: Player, p2: Player) -> tuple[bool, Player, int]:
+        if p1.category_type != p2.category_type:
+            winner = p1 if p1.category_type > p2.category_type else p2
+            return True, winner, winner.output.score
+        if p1.category_type == DiceCategory.ALL_THE_SAME_KIND:
+            if p1.output != p2.output:
+                winner = p1 if p1.output > p2.output else p2
+                return True, winner, winner.output.score
+            return False, None, None
+        elif p1.category_type == DiceCategory.NORMAL_POINT:
+            if p1.output != p2.output:
+                winner = p1 if p1.output > p2.output else p2
+                return True, winner, winner.output.score if p1.output.score != p2.output.score else winner.output.max_valid_dice
+
+        return False, None, None
+
     # entry point
     def get_sibala(self, input_str: str):
         p1_obj, p2_obj = self._parse(input_str)
-        has_winner, winner, output = get_winner(p1_obj, p2_obj)
+        has_winner, winner, output = self.get_winner(p1_obj, p2_obj)
         if has_winner:
             return f"{winner.name} wins. {category_dict[winner.category_type]}: {output}"
         return "Tie."
