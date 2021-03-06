@@ -1,8 +1,8 @@
-from enum import Enum
+from enum import IntEnum
 import collections
 
 
-class DiceCategory(Enum):
+class DiceCategory(IntEnum):
     NO_POINTS = 0
     NORMAL_POINT = 1
     ALL_THE_SAME_KIND = 2
@@ -19,7 +19,7 @@ class Player(object):
     name: str
     dices: list[int]
     category_type: DiceCategory
-    output: int
+    output: tuple[int, int]
 
     def __init__(self, name: str, dices: list[int]):
         self.name = name
@@ -28,10 +28,29 @@ class Player(object):
         self.output = self._get_output()
 
     def __repr__(self):
-        return f"{self.name=}, {self.dices=}, {self.category_type=}"
+        return f"{self.name=}, {self.dices=}, {self.category_type=}, {self.output=}"
 
     def _get_output(self):
-        return 0
+        c = collections.Counter(self.dices)
+        if (n := len(c.keys())) == 1:
+            return self.dices[0], 0
+        elif n == 4:
+            return 0, 0
+        elif n == 3:
+            # 6, 6, 1, 2
+            res_s, res_m = 0, 0
+            for k, v in c.items():
+                if v == 2:
+                    continue
+                res_s += k
+                res_m = max(res_m, k)
+            return res_s, res_m
+        else:
+            if set(c.values()) == set([1, 3]):
+                return 0, 0
+            # 6, 6, 2, 2
+            return max(c.keys()) * 2, 0
+
 
     def _get_category(self, dices: list[int]) -> DiceCategory:
         c = collections.Counter(dices)
@@ -48,8 +67,20 @@ class Player(object):
         pass
 
 
-def get_winner(p1: Player, p2: Player):
-    return True, p1
+def get_winner(p1: Player, p2: Player) -> tuple[bool, Player, int]:
+    if p1.category_type != p2.category_type:
+        winner = p1 if p1.category_type > p2.category_type else p2
+        return True, winner, winner.output[0]
+    if p1.category_type == DiceCategory.ALL_THE_SAME_KIND:
+        winner = p1 if p1.category_type > p2.category_type else p2
+        return True, winner, winner.output[0]
+    elif p1.category_type == DiceCategory.NORMAL_POINT:
+        if p1.output != p2.output:
+            winner = p1 if p1.output > p2.output else p2
+            return True, winner, winner.output[0] if p1.output[0] != p2.output[0] else winner.output[1]
+
+    return False, None, None
+
 
 
 class Sibala(object):
@@ -69,10 +100,10 @@ class Sibala(object):
         p1_obj, p2_obj = Sibala._parse(input_str)
         print(p1_obj, p2_obj)
 
-        has_winner, winner = get_winner(p1_obj, p2_obj)
+        has_winner, winner, output = get_winner(p1_obj, p2_obj)
 
         if has_winner:
-            return f"{winner.name} wins. {category_dict[winner.category_type]}: {winner.output}"
+            return f"{winner.name} wins. {category_dict[winner.category_type]}: {output}"
 
         return "Tie."
 
