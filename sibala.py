@@ -75,9 +75,6 @@ class Player(object):
         return DiceCategory.NORMAL_POINT
 
 
-
-
-
 class Sibala(object):
     def _parse(self, input_str: str):
         p1, p2 = input_str.split('  ')
@@ -88,7 +85,6 @@ class Sibala(object):
         p2_obj = Player(p2_name, [int(num) for num in p2_dice_str.split(' ')])
 
         return p1_obj, p2_obj
-
 
     def get_winner(self, p1: Player, p2: Player) -> tuple[bool, Player, int]:
         if p1.category_type != p2.category_type:
