@@ -53,13 +53,13 @@ class Player(object):
             return Output(0, 0)
         elif n == 3:
             # case: 6, 6, 1, 2
-            score, max_dice = 0, 0
+            score, max_valid_dice = 0, 0
             for k, v in c.items():
                 if v == 2:
                     continue
                 score += k
-                max_dice = max(max_dice, k)
-            return Output(score, max_dice)
+                max_valid_dice = max(max_valid_dice, k)
+            return Output(score, max_valid_dice)
         else:
             if set(c.values()) == set([1, 3]):
                 return Output(0, 0)
