@@ -49,6 +49,7 @@ class Player(object):
         elif n == 4:
             return Output(0, 0)
         elif n == 3:
+            # case: 6, 6, 1, 2
             res_s, res_m = 0, 0
             for k, v in c.items():
                 if v == 2:
@@ -59,7 +60,7 @@ class Player(object):
         else:
             if set(c.values()) == set([1, 3]):
                 return Output(0, 0)
-            # 6, 6, 2, 2
+            # case: 6, 6, 2, 2
             return Output(max(c.keys()) * 2, 0)
 
     def _get_category(self) -> DiceCategory:
