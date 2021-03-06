@@ -107,7 +107,7 @@ class Sibala(object):
         return winner, output
 
     # entry point
-    def get_sibala(self, input_str: str):
+    def get_sibala_result(self, input_str: str):
         p1_obj, p2_obj = self._parse_player_info(input_str)
         winner, output = self.get_winner(p1_obj, p2_obj)
         if winner:
